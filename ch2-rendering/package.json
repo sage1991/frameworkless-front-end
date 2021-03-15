@@ -1,0 +1,19 @@
+{
+  "name": "ch2-rendering",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/faker": "^5.1.7",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "faker": "^5.4.0"
+  }
+}
