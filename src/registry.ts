@@ -1,6 +1,5 @@
-import { ViewState } from "./view";
 
-type Component = (target: HTMLElement, state: ViewState) => HTMLElement;
+type Component = (target: HTMLElement, state: any) => HTMLElement;
 
 interface Registry {
   [key: string]: Component | undefined;
@@ -9,13 +8,13 @@ interface Registry {
 const registry: Registry = {};
 
 export const addRegistry = (name: string, component: Component) => {
-  registry[name] = component;
+  registry[name] = withRender(component);
 }
 
 
 type RenderWithComponent = (component: Component) => Component;
 
-const renderWithComponent: RenderWithComponent = (component) => (target, state) => {
+const withRender: RenderWithComponent = (component) => (target, state) => {
   const element = component(target, state);
   const children = element.querySelectorAll("[data-component]");
 
@@ -33,6 +32,6 @@ const renderWithComponent: RenderWithComponent = (component) => (target, state) 
 
 
 export const render: Component = (root, state) => {
-  const clone: Component = (root, _) => root.cloneNode(true) as HTMLElement;
-  return renderWithComponent(clone)(root, state);
+  const clone: Component = (root, _) => <HTMLElement> root.cloneNode(true);
+  return withRender(clone)(root, state);
 }
