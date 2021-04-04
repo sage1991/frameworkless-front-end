@@ -17,7 +17,7 @@ const createNode = () => {
 }
 
 
-const getTodoElement = (todo: Todo): HTMLLIElement => {
+const getTodoElement = (todo: Todo, index: number): HTMLLIElement => {
   const { text, completed } = todo;
   const element = createNode();
 
@@ -29,23 +29,38 @@ const getTodoElement = (todo: Todo): HTMLLIElement => {
     element.querySelector<HTMLInputElement>("input.toggle")!.checked = true;
   }
 
+  element
+    .querySelector<HTMLButtonElement>("button.destroy")!
+    .dataset
+    .index = `${index}`;
+
   return element;
 }
 
 
-export default (target: HTMLElement, state: TodosViewState) => {
+export default (target: HTMLElement, state: TodosViewState, events: any) => {
   const { todos } = state;
 
   const newTodosView = <HTMLElement> target.cloneNode(true);
+  newTodosView.innerHTML = "";
+
   const fragment = document.createDocumentFragment();
 
-  todos.map(getTodoElement)
-       .forEach((element) => {
-         fragment.appendChild(element);
-       });
+  todos
+    .map(getTodoElement)
+    .forEach((element) => {
+      fragment.appendChild(element);
+    });
 
-  newTodosView.innerHTML = "";
+
   newTodosView.appendChild(fragment);
+
+  newTodosView.addEventListener("click", (e) => {
+    const target = <HTMLElement> e.target;
+    if (target.matches("button.destroy")) {
+      events.deleteItem(+target.dataset.index!);
+    }
+  })
 
   return newTodosView;
 }

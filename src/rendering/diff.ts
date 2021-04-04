@@ -16,6 +16,7 @@ export const diff = (parent: Element, real: Element, virtual: Element) => {
   // case 3. real node 와 virtual node 가 다른 경우
   if (isNodeChange(real, virtual)) {
     real.replaceWith(virtual);  // 노드 교체
+    return;
   }
 
   // children node 에 diff recursion

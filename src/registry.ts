@@ -1,5 +1,5 @@
 
-type Component = (target: HTMLElement, state: any) => HTMLElement;
+type Component = (target: HTMLElement, state: any, events?: any) => HTMLElement;
 
 interface Registry {
   [key: string]: Component | undefined;
@@ -14,8 +14,8 @@ export const addRegistry = (name: string, component: Component) => {
 
 type RenderWithComponent = (component: Component) => Component;
 
-const withRender: RenderWithComponent = (component) => (target, state) => {
-  const element = component(target, state);
+const withRender: RenderWithComponent = (component) => (target, state, events) => {
+  const element = component(target, state, events);
   const children = element.querySelectorAll("[data-component]");
 
   Array.prototype.forEach.call(children, (child: HTMLElement) => {
@@ -24,14 +24,14 @@ const withRender: RenderWithComponent = (component) => (target, state) => {
     const childComponent = registry[name ?? ""];
     if (!childComponent) return;
 
-    child.replaceWith(childComponent(child, state));
+    child.replaceWith(childComponent(child, state, events));
   });
 
   return element;
 }
 
 
-export const render: Component = (root, state) => {
+export const render: Component = (root, state, events) => {
   const clone: Component = (root, _) => <HTMLElement> root.cloneNode(true);
-  return withRender(clone)(root, state);
+  return withRender(clone)(root, state, events);
 }

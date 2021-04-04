@@ -20,8 +20,26 @@ const state = {
   filter: Filter.ACTIVE
 }
 
-window.requestAnimationFrame(() => {
-  const root = document.querySelector<HTMLElement>("#root")!;
-  const newMain = render(root, state);
-  diff(document.body, root, newMain);
-});
+const events = {
+  deleteItem: (index: number) => {
+    state.todos.splice(index, 1);
+    renderDOM();
+  },
+  addItem: (text: string) => {
+    state.todos.push({
+      text,
+      completed: false
+    });
+    renderDOM();
+  }
+}
+
+const renderDOM = () => {
+  window.requestAnimationFrame(() => {
+    const root = document.querySelector<HTMLElement>("#root")!;
+    const newMain = render(root, state, events);
+    diff(document.body, root, newMain);
+  });
+}
+
+renderDOM();

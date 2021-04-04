@@ -10,11 +10,24 @@ const createNode = () => {
   return <HTMLElement> template.content.firstElementChild!.cloneNode(true);
 }
 
-export default (app: HTMLElement) => {
+
+const addEvent = (target: HTMLElement, event: any) => {
+  target
+      .querySelector<HTMLInputElement>(".new-todo")!
+      .addEventListener("keypress", (e) => {
+        if (e.key !== "Enter") return;
+        const { value } = <HTMLInputElement> e.target;
+        event.addItem(value);
+        (<HTMLInputElement> e.target).value = "";
+      })
+}
+
+export default (app: HTMLElement, state: any, events: any) => {
   const newApp = <HTMLElement> app.cloneNode(true);
 
   newApp.innerHTML = "";
   newApp.appendChild(createNode());
+  addEvent(newApp, events);
 
   return newApp;
 }
