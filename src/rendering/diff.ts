@@ -1,32 +1,33 @@
 
 
-export const diff = (parent: Element, real: Element, virtual: Element) => {
+export const diff = (parent: Element, real: Element | null, virtual: Element | null) => {
   // case 1. real node 는 있으나 virtual node 가 없는 경우
   if (real && !virtual) {
     real.remove();  // 기존 노드 제거
-    return;
   }
 
   // case 2. real node 는 없으나 virtual node 가 있는 경우
-  if (!real && virtual) {
+  else if (!real && virtual) {
     parent.appendChild(virtual);  // 노드 추가
-    return;
   }
 
   // case 3. real node 와 virtual node 가 다른 경우
-  if (isNodeChange(real, virtual)) {
-    real.replaceWith(virtual);  // 노드 교체
-    return;
+  else if (real && virtual && isNodeChange(real, virtual)) {
+    real!.replaceWith(virtual!);  // 노드 교체
   }
 
-  // children node 에 diff recursion
-  const realChildren = Array.from(real.children);
-  const virtualChildren = Array.from(virtual.children);
-  const max = Math.max(realChildren.length, virtualChildren.length);
+  // case 4. real node 와 virtual node 가 같으면 자식 비교
+  else if (real && virtual) {
+    // children node 에 diff recursion
+    const realChildren = Array.from(real!.children);
+    const virtualChildren = Array.from(virtual!.children);
+    const max = Math.max(realChildren.length, virtualChildren.length);
 
-  for (let i = 0; i < max; i++) {
-    diff(real, realChildren[i], virtualChildren[i]);
+    for (let i = 0; i < max; i++) {
+      diff(real!, realChildren[i], virtualChildren[i]);
+    }
   }
+
 }
 
 
