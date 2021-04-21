@@ -1,37 +1,40 @@
 
-type Component = (target: HTMLElement, state: any, events?: any) => HTMLElement;
+
+export type EventMap = {
+  [key: string]: (...args: any) => void;
+}
+
+export type Component<T> = (target: HTMLElement, state: T, events: EventMap) => HTMLElement;
 
 interface Registry {
-  [key: string]: Component | undefined;
+  [key: string]: Component<any>;
 }
 
-const registry: Registry = {};
+type EnhanceComponent = (Component: Component<unknown>) => Component<unknown>;
 
-export const addRegistry = (name: string, component: Component) => {
-  registry[name] = withRender(component);
-}
-
-
-type RenderWithComponent = (component: Component) => Component;
-
-const withRender: RenderWithComponent = (component) => (target, state, events) => {
-  const element = component(target, state, events);
+const enhanceComponent: EnhanceComponent = (Component) => (target, state, events) => {
+  const element = Component(target, state, events);
   const children = element.querySelectorAll("[data-component]");
 
-  Array.prototype.forEach.call(children, (child: HTMLElement) => {
-    const name = child.dataset.component;
-
-    const childComponent = registry[name ?? ""];
-    if (!childComponent) return;
-
-    child.replaceWith(childComponent(child, state, events));
+  children.forEach(child => {
+    const { component } = (<HTMLElement> child).dataset;
+    const ChildComponent = registry[component!];
+    if (!ChildComponent) return;
+    child.replaceWith(ChildComponent(<HTMLElement> child, state, events));
   });
 
   return element;
 }
 
+const registry: Registry = {};
 
-export const render: Component = (root, state, events) => {
-  const clone: Component = (root, _) => <HTMLElement> root.cloneNode(true);
-  return withRender(clone)(root, state, events);
+export const addRegistry = (name: string, Component: Component<any>) => {
+  registry[name] = enhanceComponent(Component);
+}
+
+export const render = (root: HTMLElement, state: unknown, events: EventMap) => {
+  const RootComponent: Component<unknown> = (root) => {
+    return <HTMLElement> root.cloneNode(true);
+  }
+  return enhanceComponent(RootComponent)(root, state, events);
 }

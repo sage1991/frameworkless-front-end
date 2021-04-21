@@ -1,16 +1,16 @@
 import { Todo } from "../model/Todo";
+import { Component } from "../registry";
 
 
 interface CounterViewState {
   todos: Todo[];
 }
 
-export default (target: HTMLElement, { todos }: CounterViewState) => {
+export const Counter: Component<CounterViewState> = (target, { todos }) => {
   const newCounterView = target.cloneNode(true) as HTMLElement;
   newCounterView.textContent = getTodosCount(todos);
   return newCounterView;
 }
-
 
 const getTodosCount = (todos: Todo[]) => {
   const { length } = todos.filter((todo) => !todo.completed);

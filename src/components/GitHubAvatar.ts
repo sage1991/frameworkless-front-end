@@ -1,8 +1,8 @@
 
 const ERROR_IMAGE = "https://files-82ee7vgzc.now.sh";
 const LOADING_IMAGE = "https://files-8bga2nnt0.now.sh";
-const AVATAR_LOAD_COMPLETE = 'AVATAR_LOAD_COMPLETE'
-const AVATAR_LOAD_ERROR = 'AVATAR_LOAD_ERROR'
+const AVATAR_LOAD_COMPLETE = 'AVATAR_LOAD_COMPLETE';
+const AVATAR_LOAD_ERROR = 'AVATAR_LOAD_ERROR';
 
 
 const fetchGitHubAvatar = async (user?: string | null): Promise<string | void> => {
@@ -18,7 +18,6 @@ const fetchGitHubAvatar = async (user?: string | null): Promise<string | void> =
 }
 
 export class GitHubAvatar extends HTMLElement {
-
   constructor(private url: string = LOADING_IMAGE) {
     super();
   }

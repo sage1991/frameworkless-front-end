@@ -1,9 +1,5 @@
 import { Todo } from "../model/Todo";
-
-
-interface TodosViewState {
-  todos: Todo[];
-}
+import { Component } from "../registry";
 
 
 let template: HTMLTemplateElement;
@@ -15,7 +11,6 @@ const createNode = () => {
 
   return <HTMLLIElement> template.content.firstElementChild!.cloneNode(true);
 }
-
 
 const getTodoElement = (todo: Todo, index: number): HTMLLIElement => {
   const { text, completed } = todo;
@@ -38,9 +33,11 @@ const getTodoElement = (todo: Todo, index: number): HTMLLIElement => {
 }
 
 
-export default (target: HTMLElement, state: TodosViewState, events: any) => {
-  const { todos } = state;
+interface TodosViewState {
+  todos: Todo[];
+}
 
+export const Todos: Component<TodosViewState> = (target, { todos }, events) => {
   const newTodosView = <HTMLElement> target.cloneNode(true);
   newTodosView.innerHTML = "";
 

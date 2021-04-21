@@ -1,3 +1,4 @@
+import { Component, EventMap } from "../registry";
 
 
 let template: HTMLTemplateElement;
@@ -6,10 +7,8 @@ const createNode = () => {
   if (!template) {
     template = document.querySelector<HTMLTemplateElement>("#todo-app")!
   }
-
   return <HTMLElement> template.content.firstElementChild!.cloneNode(true);
 }
-
 
 const addEvent = (target: HTMLElement, event: any) => {
   target
@@ -22,12 +21,10 @@ const addEvent = (target: HTMLElement, event: any) => {
       })
 }
 
-export default (app: HTMLElement, state: any, events: any) => {
+export const App: Component<undefined> = (app: HTMLElement, state: unknown, events: EventMap) => {
   const newApp = <HTMLElement> app.cloneNode(true);
-
   newApp.innerHTML = "";
   newApp.appendChild(createNode());
   addEvent(newApp, events);
-
   return newApp;
 }

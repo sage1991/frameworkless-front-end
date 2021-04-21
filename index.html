@@ -1,27 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/todomvc-common@1.0.5/base.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/todomvc-app-css@2.1.2/index.css">
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/todomvc-common@1.0.5/base.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/todomvc-app-css@2.1.2/index.css" />
     <script defer src="src/index.ts"></script>
     <title>Document</title>
 </head>
 <body>
-    <hello-world color="red"></hello-world>
-    <hello-world color="blue"></hello-world>
-    <hello-world></hello-world>
-    <github-avatar user="sage1991"></github-avatar>
-    <github-avatar user="adellava"/></github-avatar>
-    <github-avatar user="Fuminshou"></github-avatar>
-    <github-avatar user="lorenzomassacci"></github-avatar>
-    <github-avatar user="uochi"></github-avatar>
-    <github-avatar user="francesco-strazzullo"></github-avatar>
-    <github-avatar user="dummy_user"></github-avatar>
-
     <div id="root">
         <div data-component="app"></div>
     </div>
@@ -41,7 +30,6 @@
             <input class="edit">
         </li>
     </template>
-
     <template id="todo-app">
         <section class="todoapp">
             <header class="header">
@@ -53,11 +41,12 @@
                 <label for="toggle-all">
                     Mark all as complete
                 </label>
-                <ul class="todo-list" data-component="todos"></ul>
+                <ul class="todo-list" data-component="todos">
+                </ul>
             </section>
             <footer class="footer">
-                <span class="todo-count" data-component="counter">
-                </span>
+                    <span class="todo-count" data-component="counter">
+                    </span>
                 <ul class="filters" data-component="filters">
                     <li>
                         <a href="#/">All</a>

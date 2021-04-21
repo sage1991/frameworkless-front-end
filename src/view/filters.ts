@@ -1,15 +1,16 @@
 import { Filter } from "../model/Filter";
+import { Component } from "../registry";
 
 
 interface FiltersViewState {
   filter: Filter;
 }
 
-export default (target: HTMLElement, { filter }: FiltersViewState) => {
-  const newFiltersView = target.cloneNode(true) as HTMLElement;
+export const Filters: Component<FiltersViewState> =  (target, { filter }) => {
+  const newFiltersView = <HTMLElement> target.cloneNode(true);
 
-  Array
-    .from(newFiltersView.querySelectorAll("li a"))
+  newFiltersView
+    .querySelectorAll("li a")
     .forEach(htmlAnchor => {
       if (htmlAnchor.textContent === filter) {
         htmlAnchor.classList.add("selected");
