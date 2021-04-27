@@ -1,10 +1,10 @@
 import { addRegistry, render } from "./registry";
 import { diff } from "./rendering/diff";
 import { Filter } from "./model/Filter";
-import { Counter } from "./view/counter";
-import { App } from "./view/app";
-import { Todos } from "./view/todos";
-import { Filters } from "./view/filters";
+import { Counter } from "./component/counter";
+import { App } from "./component/app";
+import { Todos } from "./component/todos";
+import { Filters } from "./component/filters";
 import getTodos from "./getTodos";
 
 

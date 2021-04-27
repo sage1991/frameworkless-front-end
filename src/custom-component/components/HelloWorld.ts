@@ -1,4 +1,4 @@
-import { diff } from "../rendering/diff";
+import { diff } from "../../function-component/rendering/diff";
 
 
 const createDomElement = (color: string) => {

@@ -1,8 +1,8 @@
-import { Todo } from "../model/Todo";
-import { Filter } from "../model/Filter";
 import { TodoList } from "./TodoList";
 import { TodoFooter } from "./TodoFooter";
 import { LifeCycle } from "./LifeCycle";
+import { Todo } from "../model/Todo";
+import { Filter } from "../model/Filter";
 
 
 const TODO_APP_TEMPLATE = document.querySelector<HTMLTemplateElement>("#todo-app")!;

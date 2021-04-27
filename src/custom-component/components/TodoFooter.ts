@@ -1,6 +1,6 @@
+import { LifeCycle } from "./LifeCycle";
 import { Todo } from "../model/Todo";
 import { Filter } from "../model/Filter";
-import { LifeCycle } from "./LifeCycle";
 
 
 const convertToCount = (todos: Todo[]) => {
