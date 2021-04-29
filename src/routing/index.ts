@@ -1,27 +1,15 @@
 import { createPages } from "./pages"
-import { createRouter } from "./router"
+import { createHashRouter, createHistoryRouter, createNavigoRouter } from "./router"
 
-const container = document.querySelector("main")!;
+const container = document.querySelector("main")!
 
-const { home, list, detail, anotherDetail, notFound } = createPages(container);
-const router = createRouter();
+const { home, list, detail, anotherDetail, notFound } = createPages(container)
+const router = createHistoryRouter()
 
 router
-  .addRoute({ fragment: "#/", render: home })
-  .addRoute({ fragment: "#/list", render: list })
-  .addRoute({ fragment: "#/list/:id", render: detail })
-  .addRoute({ fragment: "#/list/:id/:anotherId", render: anotherDetail })
+  .addRoute({ url: "/", render: home })
+  .addRoute({ url: "/list", render: list })
+  .addRoute({ url: "/list/:id", render: detail })
+  .addRoute({ url: "/list/:id/:anotherId", render: anotherDetail })
   .setNotFound(notFound)
   .start()
-
-
-const navButtons = document.querySelectorAll<HTMLButtonElement>("button[data-navigate]")
-navButtons.forEach((button) => {
-  button.addEventListener("click", (e: MouseEvent) => {
-    const { target } = e
-    if ((<HTMLElement> target).matches("button[data-navigate]")) {
-      const { navigate } = (<HTMLElement> target).dataset
-      router.navigate(navigate ?? "/")
-    }
-  })
-})
