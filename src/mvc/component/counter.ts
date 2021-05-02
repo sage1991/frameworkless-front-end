@@ -1,12 +1,7 @@
 import { Todo } from "../model/Todo";
 import { Component } from "../registry";
 
-
-interface CounterViewState {
-  todos: Todo[];
-}
-
-export const Counter: Component<CounterViewState> = (target, { todos }) => {
+export const Counter: Component = (target, { todos }) => {
   const newCounterView = target.cloneNode(true) as HTMLElement;
   newCounterView.textContent = getTodosCount(todos);
   return newCounterView;
